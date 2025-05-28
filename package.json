@@ -1,0 +1,37 @@
+{
+  "name": "backend-backing",
+  "version": "1.0.0",
+  "description": "prueba_tecnica",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abelserradev/Backend.git"
+  },
+  "keywords": [
+    "ES"
+  ],
+  "author": "abelserradev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abelserradev/Backend/issues"
+  },
+  "homepage": "https://github.com/abelserradev/Backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "ng": "^0.0.0",
+    "pg": "^8.16.0",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.1"
+  }
+}
