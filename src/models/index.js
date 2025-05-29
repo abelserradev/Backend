@@ -2,9 +2,9 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(require('../config/database').development);
 
 // Importar funciones de modelo
-const userModel = require('./User');
+const userModel = require('./user');
 const currencyModel = require('./currency');
-const cryptoModel = require('./Crypto');
+const cryptoModel = require('./crypto');
 
 // Crear instancias de modelo
 const User = userModel(sequelize, DataTypes);

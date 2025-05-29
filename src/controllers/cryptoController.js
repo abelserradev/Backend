@@ -1,19 +1,14 @@
-const { Crypto, Currency, CryptoCurrency } = require('../models');
+const { Crypto, Currency } = require('../models');
 
-// Listar criptomonedas con filtro por moneda
 const getAllCryptos = async (req, res) => {
   try {
     const { currency } = req.query;
-    let where = {};
+    const where = currency ? { '$Currencies.code$': currency } : {};
     
-    if (currency) {
-      where = { '$Currencies.code$': currency };
-    }
-
     const cryptos = await Crypto.findAll({
       include: [{
         model: Currency,
-        attributes: ['code', 'name'],
+        attributes: ['id', 'code', 'name'],
         through: { attributes: [] },
         where
       }]
@@ -25,16 +20,31 @@ const getAllCryptos = async (req, res) => {
   }
 };
 
-// Crear criptomoneda con relación a moneda
 const createCrypto = async (req, res) => {
   try {
-    const { name, symbol, currencyId } = req.body;
+    const { name, symbol } = req.body;
     const crypto = await Crypto.create({ name, symbol });
-    await CryptoCurrency.create({ cryptoId: crypto.id, currencyId });
     res.status(201).json(crypto);
   } catch (error) {
     res.status(500).json({ error: 'Error al crear criptomoneda' });
   }
 };
 
-module.exports = { getAllCryptos, createCrypto };
+const updateCrypto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, symbol } = req.body;
+    
+    const crypto = await Crypto.findByPk(id);
+    if (!crypto) {
+      return res.status(404).json({ error: 'Criptomoneda no encontrada' });
+    }
+    
+    await crypto.update({ name, symbol });
+    res.json(crypto);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar criptomoneda' });
+  }
+};
+
+module.exports = { getAllCryptos, createCrypto, updateCrypto };
