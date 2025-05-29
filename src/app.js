@@ -1,22 +1,19 @@
+const authRoutes = require('./routes/authRoutes');
+const currencyRoutes = require('./routes/currencyRoutes');
+const cryptoRoutes = require('./routes/cryptoRoutes');
 require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const { SYSTEM_TOKEN } = require('./controllers/authController');
 
 // Middleware para parsear JSON
 app.use(express.json());
 
-// Importar el token del sistema desde authController
-const { SYSTEM_TOKEN } = require('./controllers/authController');
-
-const authRoutes = require('./routes/authRoutes');
-const currencyRoutes = require('./routes/currencyRoutes');
-const cryptoRoutes = require('./routes/cryptoRoutes');
-
 // Usar rutas
 app.use('/auth', authRoutes);
-app.use('/currency', currencyRoutes);
-app.use('/crypto', cryptoRoutes);
+app.use('/moneda', currencyRoutes);
+app.use('/', cryptoRoutes);
 
 // Middleware para mostrar el token del sistema en cada solicitud
 app.use((req, res, next) => {

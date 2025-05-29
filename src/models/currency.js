@@ -1,17 +1,28 @@
-'use strict';
-const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class Currency extends Model {
-    static associate(models) {
-      // define association here
+
+  const Currency = sequelize.define('Currency', {
+    code: {
+      type: DataTypes.STRING(3),
+      allowNull: false,
+      unique: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
-  }
-  Currency.init({
-    code: DataTypes.STRING,
-    name: DataTypes.STRING
   }, {
-    sequelize,
-    modelName: 'Currency',
+    tableName: 'currencies'
   });
+
+  Currency.associate = (models) => {
+    Currency.belongsToMany(models.Crypto, {
+      through: models.CryptoCurrency, // Modelo, no nombre de tabla
+      foreignKey: 'currencyId',       // Clave foránea en CryptoCurrencies
+      otherKey: 'cryptoId',           // Clave foránea para Crypto
+      as: 'Cryptos'
+    });
+  };
+
   return Currency;
 };

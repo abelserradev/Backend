@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const cryptoController = require('../controllers/cryptoController');
+const { 
+  getAllCryptos, 
+  createCrypto, 
+  updateCrypto 
+} = require('../controllers/cryptoController');
+const { verificarToken } = require('../middlewares/authMiddleware');
 
-// Todas las rutas requieren autenticación JWT
-router.use(authMiddleware);
-
-// Endpoint: GET /crypto (con filtro opcional: ?currency=USD)
-router.get('/', cryptoController.getAllCryptos);
-
-// Endpoint: POST /crypto
-router.post('/', cryptoController.createCrypto);
-
-// Endpoint: PUT /crypto/:id
-router.put('/:id', cryptoController.updateCrypto);
+// Rutas para criptomonedas
+router.get('/criptomonedas', verificarToken, getAllCryptos);
+router.post('/criptomonedas', verificarToken, createCrypto);
+router.put('/criptomonedas/:id', verificarToken, updateCrypto);
 
 module.exports = router;

@@ -1,15 +1,13 @@
+// Debe tener este contenido:
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const currencyController = require('../controllers/currencyController');
+const { verificarToken } = require('../middlewares/authMiddleware');
+const { getAllCurrencies, createCurrency } = require('../controllers/currencyController');
 
-// Todas las rutas requieren autenticación JWT
-router.use(authMiddleware);
+// GET /moneda
+router.get('/', verificarToken, getAllCurrencies);
 
-// Endpoint: GET /currency
-router.get('/', currencyController.getAllCurrencies);
-
-// Endpoint: POST /currency
-router.post('/', currencyController.createCurrency);
+// POST /moneda
+router.post('/', verificarToken, createCurrency);
 
 module.exports = router;
