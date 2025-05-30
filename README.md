@@ -40,7 +40,7 @@ Instalación
 Clonar el repositorio:
 
 bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
+git clone https://github.com/abelserradev/Backend.git
 cd tu-repositorio
 Instalar dependencias:
 
