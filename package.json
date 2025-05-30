@@ -30,6 +30,7 @@
     "ng": "^0.0.0",
     "pg": "^8.16.0",
     "pg-hstore": "^2.3.4",
+    "psql": "^0.0.1",
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
