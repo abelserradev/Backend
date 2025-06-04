@@ -13,7 +13,7 @@ app.use(express.json());
 // Usar rutas
 app.use('/auth', authRoutes);
 app.use('/moneda', currencyRoutes);
-app.use('/', cryptoRoutes);
+app.use('/criptomonedas', cryptoRoutes);
 
 // Middleware para mostrar el token del sistema en cada solicitud
 app.use((req, res, next) => {

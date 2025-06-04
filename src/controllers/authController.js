@@ -95,14 +95,26 @@ const login = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.json({ token });
+    // Respuesta exitosa con mensaje y token
+    res.status(200).json({ 
+      success: true,
+      message: 'Inicio de sesión exitoso',
+      token: token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name 
+      }
+    });
 
   } catch (error) {
     console.error('Error en login:', error);
-    res.status(500).json({ error: 'Error en el servidor' });
+    res.status(500).json({ 
+      success: false,
+      error: 'Error en el servidor' 
+    });
   }
 };
-
 
 
 
